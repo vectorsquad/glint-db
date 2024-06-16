@@ -1,0 +1,26 @@
+Table User {
+  _id ObjectId [primary key]
+  username string
+  password_hash string
+  name_first string
+  name_last string
+}
+
+Table Deck {
+  _id ObjectId [primary key]
+  id_user ObjectId
+  name string
+}
+
+Table Card {
+  _id ObjectId [primary key]
+  id_deck ObjectId
+  side_front string
+  side_back string
+}
+
+// Each user can have several card decks
+Ref: User._id < Deck.id_user
+
+// Each card deck can have several cards
+Ref: Deck._id < Card.id_deck
