@@ -1,28 +1,31 @@
-Table User {
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table user {
   _id ObjectId [primary key]
   username string
   password_hash string
-  email string
-  email_verified boolean
+  email string 
   name_first string
   name_last string
+  email_verified boolean
+  email_verification_code string
 }
 
-Table Deck {
+Table deck {
   _id ObjectId [primary key]
   id_user ObjectId
   name string
 }
 
-Table Card {
+Table card {
   _id ObjectId [primary key]
   id_deck ObjectId
   side_front string
   side_back string
+  card_shown boolean
 }
 
-// Each user can have several card decks
-Ref: User._id < Deck.id_user
+Ref: deck.id_user > user._id // many-to-one
 
-// Each card deck can have several cards
-Ref: Deck._id < Card.id_deck
+Ref: card.id_deck > deck._id
